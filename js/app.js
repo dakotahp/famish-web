@@ -25,8 +25,8 @@ $(document).ready(function() {
       var form = $(this);
       var element = form.find('.timezone');
 
-      console.log(element.val())
       parameters[element.attr('data-parameter') + '_timezone'] = element.val()
+      $('.label.'+element.attr('data-parameter')).text(element.val())
       return false;
     })
 
@@ -38,29 +38,37 @@ $(document).ready(function() {
 
       // set this time to destinatin timezone
       //var arrival_destination_morning_time = moment().hour(7).minute(0)
-      var arrival_destination_morning_time = moment.tz('07:00', 'H:mm', parameters['destination_timezone'])
+      var morning = new Date()
+      morning.setHours(7,0)
+      var arrival_destination_morning_time = moment.tz('07:00', 'HH:mm', window.parameters['destination_timezone'])
 
+      var arrival = new Date()
+      arrival.setHours(hour, minute)
+      var arrival_destination_time = moment.tz(hour + ':' + minute, 'HH:mm', window.parameters['destination_timezone'])
 
+      console.log(arrival_destination_morning_time.format('YYYY-MM-DD HH:mm'), arrival_destination_time.format('YYYY-MM-DD HH:mm:ss'))
 
-      var arrival_destination_time = moment.tz(hour + ':' + minute, 'H:mm', parameters['destination_timezone'])
+      difference_between_arrival_time_and_morning = arrival_destination_morning_time.hour() - arrival_destination_time.hour()
 
-      console.log(arrival_destination_morning_time.hour(), arrival_destination_time.hour())
+      var fast_end = arrival_destination_morning_time.clone(), fast_start;
+      fast_end.tz(window.parameters['departure_timezone'])
+      fast_start = fast_end.clone().subtract(12, 'hours')
+      //arrival_morning_time = arrival_destination_time.add( difference_between_arrival_time_and_morning )
+      //arrival_morning_time_in_local = arrival_morning_time.tz(window.parameters['departure_timezone'])
 
-      difference_between_arrival_time_and_morning = arrival_destination_morning_time - arrival_destination_time
-
-      arrival_morning_time = arrival_destination_time.add( difference_between_arrival_time_and_morning )
-      arrival_morning_time_in_local = arrival_morning_time.tz(parameters['departure_timezone'])
-
+      // this is kosher
+      console.log('Start eating', arrival_destination_morning_time.diff(arrival_destination_time, 'hours'), 'hours before arrival')
       //time_in_utc = moment(time_in_local).tz(parameters['destination_timezone'])
 
       // figure out morning time in destination TZ
       // then convert to UTC
       // then convert to local TZ
 
+      // arrival_destination_morning_time.diff(arrival_destination_time, 'seconds')
+      console.log( 'difference', difference_between_arrival_time_and_morning, arrival_destination_morning_time.hour(),  arrival_destination_time.hour())
 
-      console.log( arrival_destination_morning_time.diff(arrival_destination_time, 'hours'), arrival_morning_time )
-
-
+      console.log('Start your fast at ', fast_start.format('YYYY-MM-DD HH:mm'))
+      console.log('End your fast at ', fast_end.format('YYYY-MM-DD HH:mm'))
 
       return false;
     })

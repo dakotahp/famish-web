@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation | Welcome</title>
+    <title>Famish</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/app.css" />
   </head>
@@ -13,9 +13,9 @@
     <section id='main-inputs' class="row">
       <div class="large-12 columns">
         <h1>I am traveling from</h1>
-        <h1><strong><a href="#" data-open="departure-modal">Departure</a></strong></h1>
+        <h1><strong><a href="#" data-open="departure-modal" class="label departure">Departure</a></strong></h1>
         <h1>to</h1>
-        <h1><strong><a href="#" data-open="destination-modal">Destination</a></strong></h1>
+        <h1><strong><a href="#" data-open="destination-modal" class="label destination">Destination</a></strong></h1>
         <h1>and will arrive at</h1>
         <h1><strong><a href="#" data-open="arrival-modal">Arrival Time</a></strong></h1>
       </div>
@@ -50,9 +50,14 @@
     <div class="reveal" id="arrival-modal" data-reveal>
       <form id="destination-time-form" action="index.html" method="post">
         <select class="hour" name="">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="01">1</option>
+          <option value="02">2</option>
+          <option value="03">3</option>
+          <option value="06">6</option>
+          <option value="07">7</option>
+          <option value="08">8</option>
+          <option value="03">10</option>
+          <option value="11">11</option>
           <option value="12">12</option>
           <option value="13">13 (1pm)</option>
           <option value="14">14 (2pm)</option>
